@@ -3,10 +3,12 @@ package com.example.bikeshare;
 public class Ride {
     private String mBikeName ;
     private String mStartRide ;
+    private String mEndRide;
 
-    public Ride ( String bikeName , String startRide ) {
-        mBikeName = bikeName ;
-        mStartRide = startRide ;
+    public Ride (String bikeName , String startRide, String endRide) {
+        mBikeName = bikeName;
+        mStartRide = startRide;
+        mEndRide = endRide;
     }
 
     public String getBikeName () {
@@ -25,10 +27,18 @@ public class Ride {
         mStartRide = startRide ;
     }
 
+    public String getEndRide() {
+        return mEndRide;
+    }
+
+    public void setEndRide(String endRide) {
+        mEndRide = endRide;
+    }
+
     public String toString () {
         if(mStartRide.equals("") && mBikeName.equals("")){
             return "no last trip";
         }
-        return mBikeName + " started here: " + mStartRide ;
+        return mBikeName + " started from: " + mStartRide + "to: " + mEndRide;
     }
 }
