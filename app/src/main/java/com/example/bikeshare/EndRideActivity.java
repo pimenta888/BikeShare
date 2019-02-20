@@ -9,9 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class StartRideActivity extends AppCompatActivity {
+public class EndRideActivity extends AppCompatActivity {
 
-    private Button mAddRide ;
+    private Button mEndRide ;
     private TextView mLastAdded ;
     private TextView mNewWhat ;
     private TextView mNewWhere ;
@@ -21,18 +21,17 @@ public class StartRideActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_ride);
+        setContentView(R.layout.activity_end_ride);
 
-
-        mLastAdded = (TextView) findViewById(R.id.last_ride);
+        mLastAdded = (TextView) findViewById(R.id.end_last_ride);
 
         updateUI();
 
-        mAddRide = (Button) findViewById(R.id.add_button);
-        mNewWhat = (TextView) findViewById(R.id.what_text);
-        mNewWhere = (TextView) findViewById(R.id.where_text);
+        mEndRide = (Button) findViewById(R.id.end_button);
+        mNewWhat = (TextView) findViewById(R.id.end_what_text);
+        mNewWhere = (TextView) findViewById(R.id.end_where_text);
 
-        mAddRide.setOnClickListener(new View.OnClickListener() {
+        mEndRide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if ((mNewWhat.getText().length() > 0) && (mNewWhere.getText().length() > 0)){
@@ -48,7 +47,7 @@ public class StartRideActivity extends AppCompatActivity {
     }
 
     public static Intent newIntent(Context packageContext){
-        Intent intent = new Intent(packageContext, StartRideActivity.class);
+        Intent intent = new Intent(packageContext, EndRideActivity.class);
         return intent;
     }
 

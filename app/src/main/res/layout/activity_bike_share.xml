@@ -6,6 +6,15 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <TextView
+        android:id="@+id/api_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginBottom="10dp"
+        android:textAlignment="center"
+        tools:text="(API level)"/>
+
     <Button
         android:id="@+id/main_add_ride_button"
         android:layout_width="wrap_content"
@@ -27,13 +36,21 @@
         android:textColor="@android:color/white"
         android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/api_level"
+    <Button
+        android:id="@+id/main_list_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        tools:text="(API level)"/>
+        android:background="@android:color/holo_orange_dark"
+        android:padding="10dp"
+        android:text="@string/list_rides_button"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
+    <ListView
+        android:id="@+id/main_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"/>
 
 </LinearLayout>
