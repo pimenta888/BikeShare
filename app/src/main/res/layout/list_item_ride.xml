@@ -5,21 +5,21 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/what_bike_ride"
+        android:id="@+id/what_bike_list"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/start_ride"
+        android:id="@+id/start_ride_list"
         android:layout_width="135dp"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/end_ride"
+        android:id="@+id/end_ride_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
