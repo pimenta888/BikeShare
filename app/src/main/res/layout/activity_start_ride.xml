@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginRight="5dp"
             android:textColor="@color/colorPrimary"
             android:textAlignment="center"
@@ -25,7 +25,8 @@
             android:id="@+id/last_ride"
             android:layout_width="250dp"
             android:paddingTop="30dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -37,7 +38,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginRight="5dp"
             android:textColor="@color/colorPrimary"
             android:textAlignment="center"
@@ -47,7 +48,8 @@
             android:id="@+id/what_text"
             android:layout_width="250dp"
             android:paddingTop="30dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +61,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginRight="5dp"
             android:textColor="@color/colorPrimary"
             android:textAlignment="center"
@@ -69,14 +71,15 @@
             android:id="@+id/where_text"
             android:layout_width="250dp"
             android:paddingTop="30dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="370dp"
         android:layout_height="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
         android:text="@string/button_add_ride"
         android:textColor="@android:color/white"

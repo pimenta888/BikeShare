@@ -1,5 +1,6 @@
 package com.example.bikeshare;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 
 public class StartRideActivity extends AppCompatActivity {
 
-    private Button mAddRide ;
-    private TextView mLastAdded ;
-    private TextView mNewWhat ;
-    private TextView mNewWhere ;
+    private static final String ADD_WHAT = "com.example.bikeshare.add_what";
+    private static final String ADD_WHERE = "com.example.bikeshare.add_where";
+
+    private Button mAddRide;
+    private TextView mLastAdded;
+    private TextView mNewWhat;
+    private TextView mNewWhere;
 
     private Ride mLast = new Ride ("", "","");
 
@@ -22,7 +26,6 @@ public class StartRideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_ride);
-
 
         mLastAdded = (TextView) findViewById(R.id.last_ride);
 
@@ -42,9 +45,25 @@ public class StartRideActivity extends AppCompatActivity {
                     mNewWhat.setText("");
                     mNewWhere.setText("");
                     updateUI();
+                    returnResult();
                 }
             }
         });
+    }
+
+    private void returnResult(){
+        Intent data = new Intent();
+        data.putExtra(ADD_WHAT,mLast.getBikeName());
+        data.putExtra(ADD_WHERE,mLast.getStartRide());
+        setResult(Activity.RESULT_OK, data);
+    }
+
+    public static String getAddWhatBike(Intent result){
+        return result.getStringExtra(ADD_WHAT);
+    }
+
+    public static String getAddWhere(Intent result){
+        return result.getStringExtra(ADD_WHERE);
     }
 
     public static Intent newIntent(Context packageContext){

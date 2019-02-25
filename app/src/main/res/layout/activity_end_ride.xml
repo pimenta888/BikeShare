@@ -15,7 +15,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginRight="5dp"
             android:textColor="@android:color/holo_red_light"
             android:textAlignment="center"
@@ -25,7 +25,8 @@
             android:id="@+id/end_last_ride"
             android:layout_width="250dp"
             android:paddingTop="30dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -37,7 +38,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginRight="5dp"
             android:textColor="@android:color/holo_red_light"
             android:textAlignment="center"
@@ -47,7 +48,8 @@
             android:id="@+id/end_what_text"
             android:layout_width="250dp"
             android:paddingTop="30dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +61,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_marginRight="5dp"
             android:textColor="@android:color/holo_red_light"
             android:textAlignment="center"
@@ -69,14 +71,15 @@
             android:id="@+id/end_where_text"
             android:layout_width="250dp"
             android:paddingTop="30dp"
-            android:layout_height="70dp" />
+            android:layout_height="70dp"
+            android:singleLine="true"/>
     </LinearLayout>
 
     <Button
         android:id="@+id/end_button"
         android:layout_width="370dp"
         android:layout_height="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="20dp"
         android:background="@android:color/holo_red_light"
         android:text="@string/button_end_ride"
         android:textColor="@android:color/white"

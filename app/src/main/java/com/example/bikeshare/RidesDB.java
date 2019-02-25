@@ -9,10 +9,8 @@ public class RidesDB {
 
     private static RidesDB sRidesDB;
     private List<Ride> mAllRides;
-    private Ride mLastRide;
 
     private RidesDB(Context context) {
-        mLastRide = new Ride("", "", "");
 
         //just for test
         mAllRides = new ArrayList<>();
@@ -45,13 +43,22 @@ public class RidesDB {
         return mAllRides;
     }
 
-    public void addRide(String what, String where){
-        mAllRides.add(new Ride(what,where,""));
+    public void addRide(Ride ride){
+        mAllRides.add(ride);
     }
 
     public void endRide(String what, String where){
         for (Ride ride: mAllRides) {
-            if(ride.getBikeName() == what) ride.setEndRide(where);
+            if(ride.getBikeName().equals(what)) ride.setEndRide(where);
+        }
+    }
+
+    public void removeRide(String bikeName){
+        for (Ride ride: mAllRides) {
+            if(ride.getBikeName().equals(bikeName)) {
+                mAllRides.remove(ride);
+                return;
+            }
         }
     }
 }
