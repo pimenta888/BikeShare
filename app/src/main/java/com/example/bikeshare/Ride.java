@@ -1,14 +1,22 @@
 package com.example.bikeshare;
 
+import java.util.UUID;
+
 public class Ride {
+    private UUID id;
     private String mBikeName ;
     private String mStartRide ;
     private String mEndRide;
 
     public Ride (String bikeName , String startRide, String endRide) {
+        id = UUID.randomUUID();
         mBikeName = bikeName;
         mStartRide = startRide;
         mEndRide = endRide;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     public String getBikeName () {

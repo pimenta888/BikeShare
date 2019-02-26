@@ -25,6 +25,10 @@ public class BikeShareFragment extends Fragment {
     private static final int REQUEST_ADD_RIDE = 1;
     private static final int REQUEST_END_RIDE = 2;
 
+    private final int LIST_BUTTON_CLICKED_ONCE = 0;
+    private final int LIST_BUTTON_CLICKED_TWICE = 1;
+    private int LIST_BUTTON_STATE = 0;
+
     private RecyclerView mBikeRecyclerView;
     private BikeAdapter mAdapter;
     private LinearLayout mHeaderRecyclerView;
@@ -38,7 +42,6 @@ public class BikeShareFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -78,18 +81,26 @@ public class BikeShareFragment extends Fragment {
         mListRideButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHeaderRecyclerView.setVisibility(View.VISIBLE);
-                mBikeRecyclerView.setVisibility(View.VISIBLE);
+                if(LIST_BUTTON_STATE==LIST_BUTTON_CLICKED_ONCE){
+
+                    mHeaderRecyclerView.setVisibility(View.VISIBLE);
+                    mBikeRecyclerView.setVisibility(View.VISIBLE);
+
+                    LIST_BUTTON_STATE = LIST_BUTTON_CLICKED_TWICE;
+                } else if(LIST_BUTTON_STATE==LIST_BUTTON_CLICKED_TWICE){
+                    mHeaderRecyclerView.setVisibility(View.GONE);
+                    mBikeRecyclerView.setVisibility(View.GONE);
+
+                    LIST_BUTTON_STATE = LIST_BUTTON_CLICKED_ONCE;
+                }
             }
         });
 
         updateUI();
-
         return view;
     }
 
     private void updateUI(){
-
         mRidesDB = RidesDB.get(getActivity());
         List<Ride> mRidesList = mRidesDB.getRidesDB();
 
@@ -106,7 +117,6 @@ public class BikeShareFragment extends Fragment {
         if(resultCode != Activity.RESULT_OK){
             return;
         }
-
         if (requestCode == REQUEST_ADD_RIDE){
             if(data != null) {
                 String whatAdd = StartRideActivity.getAddWhatBike(data);
@@ -115,7 +125,6 @@ public class BikeShareFragment extends Fragment {
                 mRidesDB.addRide(newRide);
             }
         }
-
         if (requestCode == REQUEST_END_RIDE){
             if(data != null) {
                 String whatEnd = EndRideActivity.getEndWhatBike(data);
@@ -144,6 +153,7 @@ public class BikeShareFragment extends Fragment {
         private TextView mStartRide;
         private TextView mEndRide;
 
+        Ride mRide;
         private int ITEM_STATE = 0;
         private final int ITEM_CLICKED_ONCE = 0;
         private final int ITEM_CLICKED_TWICE = 1;
@@ -160,7 +170,7 @@ public class BikeShareFragment extends Fragment {
         }
 
         public void bind(Ride ride){
-
+            mRide = ride;
             mWhatBike.setText(ride.getBikeName());
             mStartRide.setText(ride.getStartRide());
             mEndRide.setText(ride.getEndRide());
@@ -168,7 +178,6 @@ public class BikeShareFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-
             if(ITEM_STATE==ITEM_CLICKED_ONCE){
 
                 mWhatBike.setTextColor(Color.RED);
@@ -180,7 +189,6 @@ public class BikeShareFragment extends Fragment {
                 mEndRide.setTextSize(18);
 
                 ITEM_STATE = ITEM_CLICKED_TWICE;
-
             } else if(ITEM_STATE==ITEM_CLICKED_TWICE){
 
                 mWhatBike.setTextColor(Color.GRAY);
@@ -192,7 +200,6 @@ public class BikeShareFragment extends Fragment {
                 mEndRide.setTextSize(14);
 
                 ITEM_STATE = ITEM_CLICKED_ONCE;
-
             }
         }
 
@@ -201,30 +208,29 @@ public class BikeShareFragment extends Fragment {
             confirmDelete(mWhatBike.getText().toString()).show();
             return false;
         }
-    }
 
-    private AlertDialog.Builder confirmDelete(final String bikeName){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                .setTitle("Do you wanna delete ride?")
-                .setPositiveButton(android.R.string.yes, null)
-                .setNegativeButton(android.R.string.no, null);
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                mRidesDB.removeRide(bikeName);
-                updateUI();
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        return builder;
+        private AlertDialog.Builder confirmDelete(final String bikeName){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                    .setTitle("Do you wanna delete ride?")
+                    .setPositiveButton(android.R.string.yes, null)
+                    .setNegativeButton(android.R.string.no, null);
+            builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mRidesDB.removeRide(mRide);
+                    updateUI();
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            return builder;
+        }
     }
-
 
     private class BikeAdapter extends RecyclerView.Adapter<BikeHolder>{
 

@@ -49,13 +49,13 @@ public class RidesDB {
 
     public void endRide(String what, String where){
         for (Ride ride: mAllRides) {
-            if(ride.getBikeName().equals(what)) ride.setEndRide(where);
+            if(ride.getBikeName().equals(what) && ride.getEndRide()== "Not finished") ride.setEndRide(where);
         }
     }
 
-    public void removeRide(String bikeName){
+    public void removeRide(Ride rideRemove){
         for (Ride ride: mAllRides) {
-            if(ride.getBikeName().equals(bikeName)) {
+            if(ride.getId() == rideRemove.getId()) {
                 mAllRides.remove(ride);
                 return;
             }
