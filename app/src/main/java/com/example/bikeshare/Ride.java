@@ -47,6 +47,14 @@ public class Ride {
         if(mStartRide.equals("") && mBikeName.equals("")){
             return "no last trip";
         }
-        return mBikeName + " started from: " + mStartRide + "to: " + mEndRide;
+        return mBikeName + " started from: " + mStartRide;
     }
+
+    public String toStringEnd () {
+        if(mStartRide.equals("") && mBikeName.equals("")){
+            return "no last trip";
+        }
+        return mBikeName + " finished at: " + mEndRide;
+    }
+
 }

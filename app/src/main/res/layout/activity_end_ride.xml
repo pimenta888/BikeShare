@@ -26,7 +26,8 @@
             android:layout_width="250dp"
             android:paddingTop="30dp"
             android:layout_height="70dp"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:focusable="false" />
     </LinearLayout>
 
     <LinearLayout
@@ -49,7 +50,8 @@
             android:layout_width="250dp"
             android:paddingTop="30dp"
             android:layout_height="70dp"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:hint="@string/info_end_ride"/>
     </LinearLayout>
 
     <LinearLayout

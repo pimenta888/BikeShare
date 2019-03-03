@@ -3,9 +3,9 @@ package com.example.bikeshare;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +14,8 @@ public class StartRideActivity extends AppCompatActivity {
 
     private static final String ADD_WHAT = "com.example.bikeshare.add_what";
     private static final String ADD_WHERE = "com.example.bikeshare.add_where";
+
+    private static RidesDB sRidesDB;
 
     private Button mAddRide;
     private TextView mLastAdded;
@@ -26,6 +28,11 @@ public class StartRideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_ride);
+
+        sRidesDB = RidesDB.get(this);
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mLastAdded = (TextView) findViewById(R.id.last_ride);
 
@@ -41,6 +48,8 @@ public class StartRideActivity extends AppCompatActivity {
                 if ((mNewWhat.getText().length() > 0) && (mNewWhere.getText().length() > 0)){
                     mLast.setBikeName(mNewWhat.getText().toString().trim()); //trim remove the spaces in front and end
                     mLast.setStartRide(mNewWhere.getText().toString().trim());
+
+                    sRidesDB.addRide(mLast);
 
                     mNewWhat.setText("");
                     mNewWhere.setText("");
@@ -73,5 +82,16 @@ public class StartRideActivity extends AppCompatActivity {
 
     private void updateUI(){
         mLastAdded.setText(mLast.toString());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

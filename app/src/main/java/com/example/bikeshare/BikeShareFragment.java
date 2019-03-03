@@ -25,13 +25,15 @@ public class BikeShareFragment extends Fragment {
     private static final int REQUEST_ADD_RIDE = 1;
     private static final int REQUEST_END_RIDE = 2;
 
+    private final String KEY_LIST_BUTTON ="list showed";
     private final int LIST_BUTTON_CLICKED_ONCE = 0;
     private final int LIST_BUTTON_CLICKED_TWICE = 1;
-    private int LIST_BUTTON_STATE = 0;
+    private int LIST_BUTTON_STATE;
 
     private RecyclerView mBikeRecyclerView;
     private BikeAdapter mAdapter;
     private LinearLayout mHeaderRecyclerView;
+    private TextView mInfoDelete;
 
     private Button mAddRideButton;
     private Button mEndRideButton;
@@ -48,6 +50,14 @@ public class BikeShareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_bike_share, container, false);
 
+        if(savedInstanceState != null){
+            LIST_BUTTON_STATE = savedInstanceState.getInt(KEY_LIST_BUTTON);
+        }else{
+            LIST_BUTTON_STATE = 0;
+        }
+
+        mInfoDelete = (TextView) view.findViewById(R.id.info_user_delete);
+        mInfoDelete.setVisibility(View.GONE);
         mHeaderRecyclerView = (LinearLayout) view.findViewById(R.id.main_header_list);
         mHeaderRecyclerView.setVisibility(View.GONE);
         mBikeRecyclerView = (RecyclerView) view.findViewById(R.id.bike_recycler_view);
@@ -55,9 +65,15 @@ public class BikeShareFragment extends Fragment {
         mBikeRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mBikeRecyclerView.addItemDecoration(new DividerItemDecoration(mBikeRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
 
+        if (LIST_BUTTON_STATE == 1){
+            mInfoDelete.setVisibility(View.VISIBLE);
+            mHeaderRecyclerView.setVisibility(View.VISIBLE);
+            mBikeRecyclerView.setVisibility(View.VISIBLE);
+        }
+
         /*Display API Level */
-        TextView Level = (TextView) view.findViewById(R.id.api_level);
-        Level.setText("API Level " + Build.VERSION.SDK_INT);
+        TextView ApiLevel = (TextView) view.findViewById(R.id.api_level);
+        ApiLevel.setText("API Level " + Build.VERSION.SDK_INT);
 
         mAddRideButton = (Button) view.findViewById(R.id.main_add_ride_button);
         mAddRideButton.setOnClickListener(new View.OnClickListener() {
@@ -83,13 +99,17 @@ public class BikeShareFragment extends Fragment {
             public void onClick(View v) {
                 if(LIST_BUTTON_STATE==LIST_BUTTON_CLICKED_ONCE){
 
+                    mInfoDelete.setVisibility(View.VISIBLE);
                     mHeaderRecyclerView.setVisibility(View.VISIBLE);
                     mBikeRecyclerView.setVisibility(View.VISIBLE);
 
                     LIST_BUTTON_STATE = LIST_BUTTON_CLICKED_TWICE;
                 } else if(LIST_BUTTON_STATE==LIST_BUTTON_CLICKED_TWICE){
+
+                    mInfoDelete.setVisibility(View.GONE);
                     mHeaderRecyclerView.setVisibility(View.GONE);
                     mBikeRecyclerView.setVisibility(View.GONE);
+
 
                     LIST_BUTTON_STATE = LIST_BUTTON_CLICKED_ONCE;
                 }
@@ -114,6 +134,7 @@ public class BikeShareFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
+
         if(resultCode != Activity.RESULT_OK){
             return;
         }
@@ -121,8 +142,8 @@ public class BikeShareFragment extends Fragment {
             if(data != null) {
                 String whatAdd = StartRideActivity.getAddWhatBike(data);
                 String whereAdd = StartRideActivity.getAddWhere(data);
-                Ride newRide = new Ride(whatAdd,whereAdd,"Not finished");
-                mRidesDB.addRide(newRide);
+                //Ride newRide = new Ride(whatAdd,whereAdd,"Not finished");
+               // mRidesDB.addRide(newRide);
             }
         }
         if (requestCode == REQUEST_END_RIDE){
@@ -258,5 +279,12 @@ public class BikeShareFragment extends Fragment {
             return mRides.size();
         }
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putInt(KEY_LIST_BUTTON, LIST_BUTTON_STATE);
     }
 }
