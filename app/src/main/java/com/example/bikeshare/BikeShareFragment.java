@@ -1,6 +1,6 @@
 package com.example.bikeshare;
 
-import android.app.Activity;
+import android.util.Log;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,10 +22,7 @@ import java.util.List;
 
 public class BikeShareFragment extends Fragment {
 
-    private static final int REQUEST_ADD_RIDE = 1;
-    private static final int REQUEST_END_RIDE = 2;
-
-    private final String KEY_LIST_BUTTON ="list showed";
+    private final String KEY_LIST_BUTTON ="com.example.bikeshare.list_showed";
     private final int LIST_BUTTON_CLICKED_ONCE = 0;
     private final int LIST_BUTTON_CLICKED_TWICE = 1;
     private int LIST_BUTTON_STATE;
@@ -80,7 +77,7 @@ public class BikeShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = StartRideActivity.newIntent(getActivity());
-                startActivityForResult(intent, REQUEST_ADD_RIDE);
+                startActivity(intent);
             }
         });
 
@@ -89,7 +86,7 @@ public class BikeShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = EndRideActivity.newIntent(getActivity());
-                startActivityForResult(intent, REQUEST_END_RIDE);
+                startActivity(intent);
             }
         });
 
@@ -130,36 +127,6 @@ public class BikeShareFragment extends Fragment {
         }else{
             mAdapter.notifyDataSetChanged();
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
-
-        if(resultCode != Activity.RESULT_OK){
-            return;
-        }
-        if (requestCode == REQUEST_ADD_RIDE){
-            if(data != null) {
-                String whatAdd = StartRideActivity.getAddWhatBike(data);
-                String whereAdd = StartRideActivity.getAddWhere(data);
-                //Ride newRide = new Ride(whatAdd,whereAdd,"Not finished");
-               // mRidesDB.addRide(newRide);
-            }
-        }
-        if (requestCode == REQUEST_END_RIDE){
-            if(data != null) {
-                String whatEnd = EndRideActivity.getEndWhatBike(data);
-                String whereEnd = EndRideActivity.getEndWhere(data);
-                if (containsBikeName(whatEnd)) mRidesDB.endRide(whatEnd, whereEnd);
-            }
-        }
-    }
-
-    public boolean containsBikeName(String bikeName){
-        for (Ride ride: mRidesDB.getRidesDB()) {
-            if (ride.getBikeName().equals(bikeName)) return true;
-        }
-        return false;
     }
 
     @Override

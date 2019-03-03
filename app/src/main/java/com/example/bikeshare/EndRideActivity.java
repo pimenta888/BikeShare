@@ -1,6 +1,5 @@
 package com.example.bikeshare;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +11,7 @@ import android.widget.TextView;
 
 public class EndRideActivity extends AppCompatActivity {
 
-    private static final String END_WHAT = "com.example.bikeshare.end_what";
-    private static final String END_WHERE = "com.example.bikeshare.end_where";
+    private static RidesDB sRidesDB;
 
     private Button mEndRide;
     private TextView mLastAdded;
@@ -26,6 +24,8 @@ public class EndRideActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_ride);
+
+        sRidesDB = RidesDB.get(this);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -45,28 +45,21 @@ public class EndRideActivity extends AppCompatActivity {
                     mLast.setBikeName(mNewWhat.getText().toString().trim()); //trim remove the spaces in front and end
                     mLast.setEndRide(mNewWhere.getText().toString().trim());
 
+                    if (containsBikeName(mLast.getBikeName())) sRidesDB.endRide(mLast.getBikeName(), mLast.getEndRide());
+
                     mNewWhat.setText("");
                     mNewWhere.setText("");
                     updateUI();
-                    returnResult();
                 }
             }
         });
     }
 
-    public void returnResult(){
-        Intent data = new Intent();
-        data.putExtra(END_WHAT, mLast.getBikeName());
-        data.putExtra(END_WHERE, mLast.getEndRide());
-        setResult(Activity.RESULT_OK, data);
-    }
-
-    public static String getEndWhatBike(Intent result){
-        return result.getStringExtra(END_WHAT);
-    }
-
-    public static String getEndWhere(Intent result){
-        return  result.getStringExtra(END_WHERE);
+    public boolean containsBikeName(String bikeName){
+        for (Ride ride: sRidesDB.getRidesDB()) {
+            if (ride.getBikeName().equals(bikeName)) return true;
+        }
+        return false;
     }
 
     public static Intent newIntent(Context packageContext){
