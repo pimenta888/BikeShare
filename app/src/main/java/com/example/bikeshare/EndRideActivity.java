@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EndRideActivity extends AppCompatActivity {
 
@@ -45,7 +47,14 @@ public class EndRideActivity extends AppCompatActivity {
                     mLast.setBikeName(mNewWhat.getText().toString().trim()); //trim remove the spaces in front and end
                     mLast.setEndRide(mNewWhere.getText().toString().trim());
 
-                    if (containsBikeName(mLast.getBikeName())) sRidesDB.endRide(mLast.getBikeName(), mLast.getEndRide());
+                    if (containsBikeName(mLast.getBikeName())) {
+                        sRidesDB.endRide(mLast.getBikeName(), mLast.getEndRide());
+                    } else {
+                        String message = "Error: " + mLast.getBikeName() + " doesn't have any rides started";
+                        Toast toastAnswer = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
+                        toastAnswer.setGravity(Gravity.TOP,0,150);
+                        toastAnswer.show();
+                    }
 
                     mNewWhat.setText("");
                     mNewWhere.setText("");
