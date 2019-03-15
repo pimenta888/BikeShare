@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class BikeShareFragment extends Fragment {
@@ -25,7 +26,7 @@ public class BikeShareFragment extends Fragment {
     private final String KEY_LIST_BUTTON ="com.example.bikeshare.list_showed";
     private final int LIST_BUTTON_CLICKED_ONCE = 0;
     private final int LIST_BUTTON_CLICKED_TWICE = 1;
-    private int LIST_BUTTON_STATE;
+    private int LIST_BUTTON_STATE = 0;
 
     private RecyclerView mBikeRecyclerView;
     private BikeAdapter mAdapter;
@@ -47,10 +48,8 @@ public class BikeShareFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_bike_share, container, false);
 
-        if(savedInstanceState != null){
+        if(savedInstanceState != null) {
             LIST_BUTTON_STATE = savedInstanceState.getInt(KEY_LIST_BUTTON);
-        }else{
-            LIST_BUTTON_STATE = 0;
         }
 
         mInfoDelete = (TextView) view.findViewById(R.id.info_user_delete);
@@ -140,6 +139,8 @@ public class BikeShareFragment extends Fragment {
         private TextView mWhatBike;
         private TextView mStartRide;
         private TextView mEndRide;
+        private TextView mEndDate;
+        private TextView mStartDate;
 
         Ride mRide;
         private int ITEM_STATE = 0;
@@ -154,6 +155,8 @@ public class BikeShareFragment extends Fragment {
             mWhatBike = (TextView) itemView.findViewById(R.id.what_bike_list);
             mStartRide = (TextView) itemView.findViewById(R.id.start_ride_list);
             mEndRide = (TextView) itemView.findViewById(R.id.end_ride_list);
+            mEndDate = (TextView) itemView.findViewById(R.id.date_end);
+            mStartDate = (TextView) itemView.findViewById(R.id.date_start);
 
         }
 
@@ -162,6 +165,15 @@ public class BikeShareFragment extends Fragment {
             mWhatBike.setText(ride.getBikeName());
             mStartRide.setText(ride.getStartRide());
             mEndRide.setText(ride.getEndRide());
+            SimpleDateFormat myFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+            String startDateFormat = myFormat.format(ride.getStartDate());
+            mStartDate.setText(startDateFormat);
+            if(ride.getEndDate()==null){
+                mEndDate.setText("");
+            }else {
+                String endDateFormat = myFormat.format(ride.getEndDate());
+                mEndDate.setText(endDateFormat);
+            }
         }
 
         @Override

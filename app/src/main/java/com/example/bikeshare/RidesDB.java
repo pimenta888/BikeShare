@@ -3,6 +3,7 @@ package com.example.bikeshare;
 import android.content.Context;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class RidesDB {
@@ -15,20 +16,20 @@ public class RidesDB {
         //just for test
         mAllRides = new ArrayList<>();
         mAllRides.add(new Ride(" Chuck Norris bike ", "ITU", " Fields "));
-        mAllRides.add(new Ride(" Chuck Norris bike ", " Fields ", "Kongens Nytorv "));
-        mAllRides.add(new Ride(" Bruce Lee bike ", " KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
+        mAllRides.add(new Ride(" Chuck Norris bike ", "Fields ", "Kongens Nytorv "));
+        mAllRides.add(new Ride(" Bruce Lee bike ", "KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
         mAllRides.add(new Ride(" Chuck Norris bike ", "ITU", " Fields "));
-        mAllRides.add(new Ride(" Chuck Norris bike ", " Fields ", "Kongens Nytorv "));
-        mAllRides.add(new Ride(" Bruce Lee bike ", " KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
+        mAllRides.add(new Ride(" Chuck Norris bike ", "Fields ", "Kongens Nytorv "));
+        mAllRides.add(new Ride(" Bruce Lee bike ", "KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
         mAllRides.add(new Ride(" Chuck Norris bike ", "ITU", " Fields "));
-        mAllRides.add(new Ride(" Chuck Norris bike ", " Fields ", "Kongens Nytorv "));
-        mAllRides.add(new Ride(" Bruce Lee bike ", " KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
+        mAllRides.add(new Ride(" Chuck Norris bike ", "Fields ", "Kongens Nytorv "));
+        mAllRides.add(new Ride(" Bruce Lee bike ", "KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
         mAllRides.add(new Ride(" Chuck Norris bike ", "ITU", " Fields "));
-        mAllRides.add(new Ride(" Chuck Norris bike ", " Fields ", "Kongens Nytorv "));
-        mAllRides.add(new Ride(" Bruce Lee bike ", " KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
+        mAllRides.add(new Ride(" Chuck Norris bike ", "Fields ", "Kongens Nytorv "));
+        mAllRides.add(new Ride(" Bruce Lee bike ", "KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
         mAllRides.add(new Ride(" Chuck Norris bike ", "ITU", " Fields "));
-        mAllRides.add(new Ride(" Chuck Norris bike ", " Fields ", "Kongens Nytorv "));
-        mAllRides.add(new Ride(" Bruce Lee bike ", " KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
+        mAllRides.add(new Ride(" Chuck Norris bike ", "Fields ", "Kongens Nytorv "));
+        mAllRides.add(new Ride(" Bruce Lee bike ", "KobenhavnsLufthavn ", " Kobenhavns Hovedbanegard "));
 
     }
 
@@ -49,7 +50,10 @@ public class RidesDB {
 
     public void endRide(String what, String where){
         for (Ride ride: mAllRides) {
-            if(ride.getBikeName().equals(what) && ride.getEndRide()== "Not finished") ride.setEndRide(where);
+            if(ride.getBikeName().equals(what) && ride.getEndRide()== "Not finished") {
+                ride.setEndRide(where);
+                ride.setEndDate(new Date());
+            }
         }
     }
 

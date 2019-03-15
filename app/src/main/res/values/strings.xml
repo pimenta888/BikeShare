@@ -8,4 +8,10 @@
     <string name="button_end_ride">End Ride</string>
     <string name="list_rides_button">List Rides</string>
     <string name="info_end_ride">Use same bike name of start</string>
+    <string name="bike_name">Bike name</string>
+    <string name="start_ride">Start ride</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="end_ride">End ride</string>
+    <string name="time">Time:</string>
 </resources>
