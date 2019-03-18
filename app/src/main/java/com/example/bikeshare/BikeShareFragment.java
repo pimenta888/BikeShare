@@ -1,6 +1,5 @@
 package com.example.bikeshare;
 
-import android.util.Log;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,6 +19,7 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 
 public class BikeShareFragment extends Fragment {
 
@@ -118,12 +118,13 @@ public class BikeShareFragment extends Fragment {
 
     private void updateUI(){
         mRidesDB = RidesDB.get(getActivity());
-        List<Ride> mRidesList = mRidesDB.getRidesDB();
+        List<Ride> mRidesList = mRidesDB.getRides();
 
         if(mAdapter == null) {
             mAdapter = new BikeAdapter(mRidesList);
             mBikeRecyclerView.setAdapter(mAdapter);
         }else{
+            mAdapter.setRides(mRidesList);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -166,9 +167,10 @@ public class BikeShareFragment extends Fragment {
             mStartRide.setText(ride.getStartRide());
             mEndRide.setText(ride.getEndRide());
             SimpleDateFormat myFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");
+            myFormat.setTimeZone(TimeZone.getTimeZone("GMT+1"));
             String startDateFormat = myFormat.format(ride.getStartDate());
             mStartDate.setText(startDateFormat);
-            if(ride.getEndDate()==null){
+            if(ride.getEndRide().equals("Not finished")){
                 mEndDate.setText("");
             }else {
                 String endDateFormat = myFormat.format(ride.getEndDate());
@@ -256,6 +258,10 @@ public class BikeShareFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mRides.size();
+        }
+
+        public void setRides(List<Ride> rides){
+            mRides = rides;
         }
 
     }

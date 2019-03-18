@@ -12,11 +12,16 @@ public class Ride {
     private Date mEndDate;
 
     public Ride (String bikeName , String startRide, String endRide) {
-        id = UUID.randomUUID();
+       this(UUID.randomUUID(), bikeName, startRide, endRide);
+    }
+
+    public Ride (UUID uuid, String bikeName , String startRide, String endRide) {
+        id = uuid;
         mBikeName = bikeName.trim();
         mStartRide = startRide.trim();
         mEndRide = endRide.trim();
         mStartDate = new Date();
+        mEndDate = mStartDate;
     }
 
     public UUID getId() {

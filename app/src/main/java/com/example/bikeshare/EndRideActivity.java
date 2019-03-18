@@ -65,7 +65,7 @@ public class EndRideActivity extends AppCompatActivity {
     }
 
     public boolean containsBikeName(String bikeName){
-        for (Ride ride: sRidesDB.getRidesDB()) {
+        for (Ride ride: sRidesDB.getRides()) {
             if (ride.getBikeName().equals(bikeName)) return true;
         }
         return false;

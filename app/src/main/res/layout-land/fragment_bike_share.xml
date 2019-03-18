@@ -81,7 +81,8 @@
             <TextView
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
                 android:text="Bike"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -90,7 +91,9 @@
                 android:id="@+id/start_ride_list"
                 android:layout_width="135dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
                 android:text="Start"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -99,7 +102,7 @@
                 android:id="@+id/end_ride_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="5dp"
                 android:text="End"
                 android:textSize="18sp"
                 android:textStyle="bold" />
