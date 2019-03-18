@@ -2,8 +2,11 @@ package com.example.bikeshare.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
+import android.util.Log;
 
+import com.example.bikeshare.manageBikes.Bike;
 import com.example.bikeshare.Ride;
+import com.example.bikeshare.database.RideDbSchema.BikeTable;
 import com.example.bikeshare.database.RideDbSchema.RidesTable;
 
 import java.util.Date;
@@ -27,6 +30,17 @@ public class RideCursorWrapper extends CursorWrapper {
         ride.setEndDate(new Date(endDate));
 
         return ride;
+    }
+
+    public Bike getBike(){
+        String uuidString = getString(getColumnIndex(BikeTable.Cols.UUID));
+        String bikeName = getString(getColumnIndex(BikeTable.Cols.BIKENAME));
+        int isAvailable = getInt(getColumnIndex(BikeTable.Cols.AVAILABLE));
+        Log.d("Rides", "id: " + uuidString + "bike: " + bikeName);
+        Bike bike = new Bike(UUID.fromString(uuidString), bikeName);
+        bike.setAvailable(isAvailable != 0); //1 means true
+
+        return bike;
     }
 }
 

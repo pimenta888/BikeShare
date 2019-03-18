@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".manageBikes.BikeListActivity"></activity>
+        <activity android:name=".manageBikes.BikeNameActivity" />
         <activity android:name=".BikeShareActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,10 +20,10 @@
         </activity>
         <activity
             android:name=".EndRideActivity"
-            android:parentActivityName=".BikeShareActivity"/>
+            android:parentActivityName=".BikeShareActivity" />
         <activity
             android:name=".StartRideActivity"
-            android:parentActivityName=".BikeShareActivity"/>
+            android:parentActivityName=".BikeShareActivity" />
     </application>
 
 </manifest>
