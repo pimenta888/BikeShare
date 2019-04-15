@@ -34,8 +34,7 @@ public class RideBaseHelper extends SQLiteOpenHelper {
                 RidesTable.Cols.STARTLOCATION + ", " +
                 RidesTable.Cols.ENDLOCATION + ", " +
                 RidesTable.Cols.STARTDATE + ", " +
-                RidesTable.Cols.ENDDATE + ", " +
-                "foreign key (" + RidesTable.Cols.BIKENAME + ") references " + BikeTable.NAME + "(" + BikeTable.Cols.BIKENAME + ")" +
+                RidesTable.Cols.ENDDATE +
                 ")"
         );
     }

@@ -12,6 +12,7 @@ import com.example.bikeshare.database.RideDbSchema.BikeTable;
 import com.example.bikeshare.database.RideDbSchema.RidesTable;
 import com.example.bikeshare.manageBikes.Bike;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -102,6 +103,11 @@ public class RidesDB {
         String uuidString = rideRemove.getId().toString();
 
         mDatabase.delete(RidesTable.NAME, RidesTable.Cols.UUID + " = ?", new String[] {uuidString});
+    }
+
+    public File getPhotoFile(Bike bike){
+        File filesDir = mContext.getFilesDir();
+        return new File(filesDir, bike.getPhotoFilename());
     }
 
     public List<Bike> getBikes(){

@@ -7,20 +7,36 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.bikeshare.manageBikes.Bike;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EndRideActivity extends AppCompatActivity {
 
     private static RidesDB sRidesDB;
+    private SpinnerAdapter mAdapterSpinner;
 
     private Button mEndRide;
     private TextView mLastAdded;
-    private TextView mNewWhat;
+    private Spinner mSpinnerBikeName;
     private TextView mNewWhere;
+    private Bike mBike;
+    private String mBikeName;
 
     private Ride mLast = new Ride ("", "","");
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateSpinner();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,38 +53,63 @@ public class EndRideActivity extends AppCompatActivity {
         updateUI();
 
         mEndRide = (Button) findViewById(R.id.end_button);
-        mNewWhat = (TextView) findViewById(R.id.end_what_text);
+        mSpinnerBikeName = (Spinner) findViewById(R.id.spinner_end_ride);
         mNewWhere = (TextView) findViewById(R.id.end_where_text);
+
+        mSpinnerBikeName.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mBike = (Bike) parent.getItemAtPosition(position);
+                mBikeName = mBike.getBikeName();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         mEndRide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((mNewWhat.getText().length() > 0) && (mNewWhere.getText().length() > 0)){
-                    mLast.setBikeName(mNewWhat.getText().toString().trim()); //trim remove the spaces in front and end
+                if ((!mBikeName.equals("Choose Bike")) && (mNewWhere.getText().length() > 0)){
+                    mLast.setBikeName(mBikeName); //trim remove the spaces in front and end
                     mLast.setEndRide(mNewWhere.getText().toString().trim());
 
-                    if (containsBikeName(mLast.getBikeName())) {
-                        sRidesDB.endRide(mLast.getBikeName(), mLast.getEndRide());
-                    } else {
-                        String message = "Error: " + mLast.getBikeName() + " doesn't have any rides started";
-                        Toast toastAnswer = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
-                        toastAnswer.setGravity(Gravity.TOP,0,150);
-                        toastAnswer.show();
-                    }
+                    sRidesDB.endRide(mLast.getBikeName(), mLast.getEndRide());
 
-                    mNewWhat.setText("");
                     mNewWhere.setText("");
                     updateUI();
+                    mSpinnerBikeName.setSelection(0);
+                    mAdapterSpinner = null;
+                    updateSpinner();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Error: Bike ride not ended", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+        updateSpinner();
     }
 
-    public boolean containsBikeName(String bikeName){
-        for (Ride ride: sRidesDB.getRides()) {
-            if (ride.getBikeName().equals(bikeName)) return true;
+    private void updateSpinner(){
+
+        List<Bike> mBikesAvailableList = new ArrayList<Bike>();
+        Bike noBikeSelected = new Bike("Choose Bike");
+        mBikesAvailableList.add(noBikeSelected);
+        for (Bike bike : sRidesDB.getBikes()){
+            if(!sRidesDB.bikeAvailability(bike)) {
+                mBikesAvailableList.add(bike);
+            }
         }
-        return false;
+
+        if(mAdapterSpinner == null) {
+            mAdapterSpinner = new SpinnerAdapter(this, mBikesAvailableList);
+            mSpinnerBikeName.setAdapter(mAdapterSpinner);
+        }else{
+            //mAdapter.setRides(mRidesList);
+            mAdapterSpinner.notifyDataSetChanged();
+        }
     }
 
     public static Intent newIntent(Context packageContext){

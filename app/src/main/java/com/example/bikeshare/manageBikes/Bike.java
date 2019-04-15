@@ -40,4 +40,9 @@ public class Bike {
     public void setAvailable(boolean available) {
         mAvailable = available;
     }
+
+    public String getPhotoFilename(){
+        return "IMG_" + getBikeId().toString() + ".jpg";
+    }
+
 }

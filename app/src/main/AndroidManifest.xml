@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bikeshare">
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"/>
 
     <application
         android:allowBackup="true"
@@ -9,8 +12,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".manageBikes.BikeListActivity"></activity>
-        <activity android:name=".manageBikes.BikeNameActivity" />
+        <activity
+            android:name=".manageBikes.BikeListActivity"
+            android:parentActivityName=".BikeShareActivity">
+        </activity>
+        <activity
+            android:name=".manageBikes.BikeNameActivity"
+            android:parentActivityName=".manageBikes.BikeListActivity">
+        </activity>
         <activity android:name=".BikeShareActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +33,15 @@
         <activity
             android:name=".StartRideActivity"
             android:parentActivityName=".BikeShareActivity" />
+        <provider
+            android:authorities="com.example.bikeshare.fileprovider"
+            android:name="android.support.v4.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/files"/>
+        </provider>
     </application>
 
 </manifest>

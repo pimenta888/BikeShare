@@ -2,11 +2,14 @@ package com.example.bikeshare.manageBikes;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import com.example.bikeshare.R;
 import com.example.bikeshare.RidesDB;
 
+import java.io.File;
 import java.util.List;
 
 public class BikeListFragment extends Fragment {
@@ -45,10 +49,16 @@ public class BikeListFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.new_bike:
-                Bike bike = new Bike("Bike Name");
+                List<Bike> mBikesList = mRidesDB.getBikes();
+                int count = mBikesList.size();
+
+                Bike bike = new Bike("Bike #" + count);
                 RidesDB.get(getActivity()).addBikeName(bike);
                 Intent intent = BikeNameActivity.newIntent(getActivity(), bike.getBikeId());
                 startActivity(intent);
+                return true;
+            case android.R.id.home:
+                getActivity().finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -101,7 +111,9 @@ public class BikeListFragment extends Fragment {
         private TextView mBikeNameTitle;
         private ImageView mAvailableImage;
         private ImageView mUnavailableImage;
+        private ImageView mBikePicture;
         private Bike mBike;
+        private File mPhotoFile;
 
         public BikeNameHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_bike, parent, false));
@@ -110,6 +122,10 @@ public class BikeListFragment extends Fragment {
             mBikeNameTitle = (TextView) itemView.findViewById(R.id.bike_title);
             mAvailableImage = (ImageView) itemView.findViewById(R.id.imageView);
             mUnavailableImage = (ImageView) itemView.findViewById(R.id.imageView2);
+            mBikePicture = (ImageView) itemView.findViewById(R.id.imageView3);
+
+
+
         }
 
         public void bind(Bike bike){
@@ -118,6 +134,19 @@ public class BikeListFragment extends Fragment {
             mBikeNameTitle.setText(mBike.getBikeName());
             mAvailableImage.setVisibility(bike.isAvailable() ? View.VISIBLE : View.GONE);
             mUnavailableImage.setVisibility(!bike.isAvailable() ? View.VISIBLE : View.GONE);
+
+            mPhotoFile = RidesDB.get(getActivity()).getPhotoFile(mBike);
+            Uri uri = FileProvider.getUriForFile(getActivity(), "com.example.bikeshare.fileprovider", mPhotoFile);
+            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+            if(mPhotoFile == null || !mPhotoFile.exists()){
+                mBikePicture.setImageDrawable(null);
+            } else {
+                Bitmap bitmap = PicturesUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+                mBikePicture.setImageBitmap(bitmap);
+            }
+            mBikePicture.setVisibility(mBikePicture != null ? View.VISIBLE : View.GONE);
+
         }
 
 

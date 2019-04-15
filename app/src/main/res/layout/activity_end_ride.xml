@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,84 +8,106 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20sp"
             android:layout_marginRight="5dp"
-            android:textColor="@android:color/holo_red_light"
+            android:text="@string/text_last_added"
             android:textAlignment="center"
-            android:text="@string/text_last_added" />
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/end_last_ride"
             android:layout_width="250dp"
-            android:paddingTop="30dp"
             android:layout_height="70dp"
-            android:singleLine="true"
-            android:focusable="false" />
+            android:focusable="false"
+            android:paddingTop="30dp"
+            android:singleLine="true" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:textSize="20sp"
             android:layout_marginRight="5dp"
-            android:textColor="@android:color/holo_red_light"
+            android:paddingTop="30dp"
+            android:text="@string/text_what_bike"
             android:textAlignment="center"
-            android:text="@string/text_what_bike" />
-
-        <EditText
-            android:id="@+id/end_what_text"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="20sp" />
+        <LinearLayout
             android:layout_width="250dp"
-            android:paddingTop="30dp"
-            android:layout_height="70dp"
-            android:singleLine="true"
-            android:hint="@string/info_end_ride"/>
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+                <Spinner
+                    android:id="@+id/spinner_end_ride"
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:theme="@style/MatchSpinnerTheme"/>
+            <View
+                android:layout_width="250dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/black" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20sp"
             android:layout_marginRight="5dp"
-            android:textColor="@android:color/holo_red_light"
+            android:text="@string/text_where_to"
             android:textAlignment="center"
-            android:text="@string/text_where_to" />
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/end_where_text"
             android:layout_width="250dp"
-            android:paddingTop="30dp"
             android:layout_height="70dp"
-            android:singleLine="true"/>
+            android:paddingTop="30dp"
+            android:singleLine="true" />
     </LinearLayout>
 
     <Button
         android:id="@+id/end_button"
         android:layout_width="370dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
         android:background="@android:color/holo_red_light"
         android:text="@string/button_end_ride"
         android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

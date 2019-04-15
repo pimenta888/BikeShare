@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,83 +8,114 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20sp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/text_last_added"
             android:textAlignment="center"
-            android:text="@string/text_last_added" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/last_ride"
             android:layout_width="250dp"
-            android:paddingTop="30dp"
             android:layout_height="70dp"
-            android:singleLine="true"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:paddingTop="30dp"
+            android:singleLine="true" />
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="70dp"
-            android:textSize="20sp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/colorPrimary"
+            android:paddingTop="30dp"
+            android:text="@string/text_what_bike"
             android:textAlignment="center"
-            android:text="@string/text_what_bike" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/what_text"
+        <LinearLayout
             android:layout_width="250dp"
-            android:paddingTop="30dp"
-            android:layout_height="70dp"
-            android:singleLine="true"/>
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
+
+            <Spinner
+                android:id="@+id/spinner_start_ride"
+                android:layout_width="250dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:spinnerMode="dropdown"
+                android:theme="@style/MatchSpinnerTheme"/>
+
+            <View
+                android:layout_width="250dp"
+                android:layout_height="2dp"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/black" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="70dp"
-            android:textSize="20sp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/text_where_to"
             android:textAlignment="center"
-            android:text="@string/text_where_to" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/where_text"
             android:layout_width="250dp"
-            android:paddingTop="30dp"
             android:layout_height="70dp"
-            android:singleLine="true"/>
+            android:paddingTop="30dp"
+            android:singleLine="true" />
     </LinearLayout>
 
     <Button
         android:id="@+id/add_button"
         android:layout_width="370dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
         android:background="@color/colorPrimary"
         android:text="@string/button_add_ride"
         android:textColor="@android:color/white"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
