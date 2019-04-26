@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">BikeShare</string>
     <string name="text_last_added">Last added</string>
-    <string name="text_what_bike">What bike</string>
-    <string name="text_where_to">Where to</string>
+    <string name="text_what_bike">Your Bike</string>
+    <string name="text_where_to">Your current Location</string>
     <string name="info_user_delete">(Long click on ride to delete)</string>
     <string name="button_add_ride">Add Ride</string>
     <string name="button_end_ride">End Ride</string>

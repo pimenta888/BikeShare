@@ -67,19 +67,4 @@ public class Ride {
     public void setEndDate(Date endDate) {
         mEndDate = endDate;
     }
-
-    public String toString () {
-        if(mStartRide.equals("") && mBikeName.equals("")){
-            return "no last trip";
-        }
-        return mBikeName + " started from: " + mStartRide;
-    }
-
-    public String toStringEnd () {
-        if(mStartRide.equals("") && mBikeName.equals("")){
-            return "no last trip";
-        }
-        return mBikeName + " finished at: " + mEndRide;
-    }
-
 }

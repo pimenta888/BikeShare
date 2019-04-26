@@ -8,41 +8,15 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
+        android:id="@+id/linearLayout4"
+        android:layout_width="370dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="horizontal"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="5dp"
-            android:text="@string/text_last_added"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <EditText
-            android:id="@+id/last_ride"
-            android:layout_width="250dp"
-            android:layout_height="70dp"
-            android:focusable="false"
-            android:paddingTop="30dp"
-            android:singleLine="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,34 +38,27 @@
                 android:id="@+id/spinner_start_ride"
                 android:layout_width="250dp"
                 android:layout_height="48dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="2dp"
                 android:layout_weight="1"
                 android:spinnerMode="dropdown"
-                android:theme="@style/MatchSpinnerTheme"/>
-
-            <View
-                android:layout_width="250dp"
-                android:layout_height="2dp"
-                android:layout_marginLeft="10dp"
-                android:background="@android:color/black" />
-
+                android:theme="@style/MatchSpinnerTheme" />
         </LinearLayout>
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout2"
-        android:layout_width="wrap_content"
+        android:layout_width="370dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <TextView
-            android:layout_width="100dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/text_where_to"
             android:textAlignment="center"
             android:textColor="@color/colorPrimary"
@@ -99,11 +66,26 @@
 
         <EditText
             android:id="@+id/where_text"
-            android:layout_width="250dp"
-            android:layout_height="70dp"
-            android:paddingTop="30dp"
-            android:singleLine="true" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:text="Loading..."
+            android:inputType="textMultiLine"
+            android:lines="2" />
     </LinearLayout>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:layout_width="370dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+    </FrameLayout>
 
     <Button
         android:id="@+id/add_button"
