@@ -6,6 +6,7 @@ public class Bike {
     private UUID mBikeId;
     private String mBikeName;
     private boolean mAvailable;
+    private double price;
 
     public Bike(String bikeName){
         this(UUID.randomUUID(), bikeName);
@@ -15,6 +16,7 @@ public class Bike {
         mBikeId = id;
         mBikeName = bikeName;
         mAvailable = true;
+        price = 0.0;
     }
 
     public UUID getBikeId() {
@@ -45,4 +47,15 @@ public class Bike {
         return "IMG_" + getBikeId().toString() + ".jpg";
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String priceString(){
+        return price + "";
+    }
 }
