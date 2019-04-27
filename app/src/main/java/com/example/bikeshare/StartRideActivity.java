@@ -59,6 +59,7 @@ public class StartRideActivity extends AppCompatActivity {
     private static  final int ALL_PERMISSIONS_RESULT = 1011;
     private double longitude;
     private double latitude;
+    private String address;
     private int showMap = 1;
 
     private Ride mLast = new Ride ("", "","");
@@ -157,7 +158,8 @@ public class StartRideActivity extends AppCompatActivity {
                 for(Location location : locationResult.getLocations()){
                     longitude = location.getLongitude();
                     latitude = location.getLatitude();
-                    mNewWhere.setText(getAddress(longitude, latitude));
+                    address = getAddress(longitude, latitude);
+                    mNewWhere.setText(address);
                 }
 
                 if(showMap == 1){
@@ -198,7 +200,7 @@ public class StartRideActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if ((!mBikeName.equals("Choose Bike")) && (mNewWhere.getText().length() > 0)){
                     mLast.setBikeName(mBikeName);
-                    mLast.setStartRide(mNewWhere.getText().toString().trim());
+                    mLast.setStartRide(address);
 
                     sRidesDB.addRide(new Ride(mLast.getBikeName(),mLast.getStartRide(),"Not finished"));
 

@@ -59,6 +59,7 @@ public class EndRideActivity extends AppCompatActivity {
     private static  final int ALL_PERMISSIONS_RESULT = 1011;
     private double longitude;
     private double latitude;
+    private String address;
     private int showMap = 1;
 
     @Override
@@ -155,7 +156,8 @@ public class EndRideActivity extends AppCompatActivity {
                 for(Location location : locationResult.getLocations()){
                     longitude = location.getLongitude();
                     latitude = location.getLatitude();
-                    mNewWhere.setText(getAddress(longitude, latitude));
+                    address = getAddress(longitude, latitude);
+                    mNewWhere.setText(address);
                 }
 
                 if(showMap == 1){
@@ -194,8 +196,8 @@ public class EndRideActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if ((!mBikeName.equals("Choose Bike")) && (mNewWhere.getText().length() > 0)){
-                    mLast.setBikeName(mBikeName); //trim remove the spaces in front and end
-                    mLast.setEndRide(mNewWhere.getText().toString().trim());
+                    mLast.setBikeName(mBikeName);
+                    mLast.setEndRide(address);
 
                     sRidesDB.endRide(mLast.getBikeName(), mLast.getEndRide());
 
