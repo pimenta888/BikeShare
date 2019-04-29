@@ -22,7 +22,19 @@ public class RideDbSchema {
             public static final String ENDLOCATION = "endRide";
             public static final String STARTDATE = "startDate";
             public static final String ENDDATE = "endDate";
+            public static final String USEREMAIL = "email";
             public static final String TOTALPRICE = "totalprice";
+        }
+    }
+
+    public static final class UsersTable{
+        public static final String NAME = "users";
+
+        public static final class Cols {
+            public static final String EMAIL = "email";
+            public static final String PASSWORD = "password";
+            public static final String MONEY = "money";
+            public static final String STATUS = "status";
         }
     }
 }

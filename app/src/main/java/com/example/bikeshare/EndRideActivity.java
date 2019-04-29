@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bikeshare.Users.User;
 import com.example.bikeshare.manageBikes.Bike;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -51,7 +52,7 @@ public class EndRideActivity extends AppCompatActivity {
     private Bike mBike;
     private String mBikeName;
 
-    private Ride mLast = new Ride ("", "","");
+    private Ride mLast = new Ride ("", "","", "");
 
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private LocationCallback mLocationCallback;
@@ -61,6 +62,18 @@ public class EndRideActivity extends AppCompatActivity {
     private double latitude;
     private String address;
     private int showMap = 1;
+
+    private User mUser;
+
+    public User userSession(){
+        sRidesDB = RidesDB.get(this);
+        for (User userOnline: sRidesDB.getUsers()) {
+            if(userOnline.isStatus() == true){
+                return userOnline;
+            }
+        }
+        return null;
+    }
 
     @Override
     protected void onResume() {
@@ -127,6 +140,8 @@ public class EndRideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_ride);
 
+        mUser = userSession();
+
         sRidesDB = RidesDB.get(this);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -136,6 +151,7 @@ public class EndRideActivity extends AppCompatActivity {
         mSpinnerBikeName = (Spinner) findViewById(R.id.spinner_end_ride);
         mNewWhere = (TextView) findViewById(R.id.end_where_text);
         mNewWhere.setKeyListener(null);
+        mNewWhere.setText("Loading...");
 
         mPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         mPermissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -195,11 +211,14 @@ public class EndRideActivity extends AppCompatActivity {
         mEndRide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((!mBikeName.equals("Choose Bike")) && (mNewWhere.getText().length() > 0)){
+                if ((!mBikeName.equals("Choose Bike")) && (!mNewWhere.getText().toString().equals("Loading..."))){
                     mLast.setBikeName(mBikeName);
                     mLast.setEndRide(address);
 
-                    sRidesDB.endRide(mLast.getBikeName(), mLast.getEndRide());
+                    double ridePrice = sRidesDB.endRide(mLast.getBikeName(), mLast.getEndRide());
+                    double newBalance = mUser.getMoney() - ridePrice;
+                    mUser.setMoney(newBalance);
+                    sRidesDB.updateUser(mUser);
 
                     mNewWhere.setText("Loading...");
                     mSpinnerBikeName.setSelection(0);
@@ -221,7 +240,7 @@ public class EndRideActivity extends AppCompatActivity {
         Bike noBikeSelected = new Bike("Choose Bike");
         mBikesAvailableList.add(noBikeSelected);
         for (Bike bike : sRidesDB.getBikes()){
-            if(!sRidesDB.bikeAvailability(bike)) {
+            if(!sRidesDB.bikeAvailability(bike) && sRidesDB.getRideUser(bike.getBikeName()).equals(mUser.getEmail())) {
                 mBikesAvailableList.add(bike);
             }
         }

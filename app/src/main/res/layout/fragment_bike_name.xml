@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
             android:layout_weight="1"
-            android:text="€/hour"
+            android:text="€/min"
             android:textSize="24sp" />
     </LinearLayout>
 
@@ -146,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:text="Bike"
+            android:text="User"
             android:textSize="18sp"
             android:textStyle="bold" />
 

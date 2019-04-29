@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bikeshare.Users.User;
 import com.example.bikeshare.manageBikes.Bike;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -62,7 +63,7 @@ public class StartRideActivity extends AppCompatActivity {
     private String address;
     private int showMap = 1;
 
-    private Ride mLast = new Ride ("", "","");
+    private Ride mLast = new Ride ("", "","","");
 
     @Override
     protected void onResume() {
@@ -124,6 +125,16 @@ public class StartRideActivity extends AppCompatActivity {
         return true;
     }
 
+    public User userSession(){
+        sRidesDB = RidesDB.get(this);
+        for (User userOnline: sRidesDB.getUsers()) {
+            if(userOnline.isStatus() == true){
+                return userOnline;
+            }
+        }
+        return null;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,6 +149,7 @@ public class StartRideActivity extends AppCompatActivity {
         mSpinnerBikeName = (Spinner) findViewById(R.id.spinner_start_ride);
         mNewWhere = (TextView) findViewById(R.id.where_text);
         mNewWhere.setKeyListener(null);
+        mNewWhere.setText("Loading...");
 
         mPermissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
         mPermissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
@@ -198,11 +210,11 @@ public class StartRideActivity extends AppCompatActivity {
         mAddRide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ((!mBikeName.equals("Choose Bike")) && (mNewWhere.getText().length() > 0)){
+                if ((!mBikeName.equals("Choose Bike")) && (!mNewWhere.getText().toString().equals("Loading..."))){
                     mLast.setBikeName(mBikeName);
                     mLast.setStartRide(address);
-
-                    sRidesDB.addRide(new Ride(mLast.getBikeName(),mLast.getStartRide(),"Not finished"));
+                    Log.d("ola", "" + userSession().getEmail());
+                    sRidesDB.addRide(new Ride(mLast.getBikeName(),mLast.getStartRide(),"Not finished",userSession().getEmail()));
 
                     mNewWhere.setText("Loading...");
                     mSpinnerBikeName.setSelection(0);

@@ -297,7 +297,7 @@ public class BikeNameFragment extends Fragment {
 
         public void bind(Ride ride){
             mRide = ride;
-            mWhatBike.setText(ride.getBikeName());
+            mWhatBike.setText(ride.getUser());
             mStartRide.setText(ride.getStartRide());
             mEndRide.setText(ride.getEndRide());
             SimpleDateFormat myFormat = new SimpleDateFormat("MM-dd-yyyy hh:mm:ss");

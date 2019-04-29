@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.bikeshare">
+
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="false"/>
+        android:required="false" />
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -15,39 +16,47 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <uses-library android:name="com.google.android.maps"/>
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAldhPZdqAf2Yy-xT6GNFPzqciJFPZAoG8" />
         <activity
-            android:name=".manageBikes.BikeListActivity"
+            android:name=".Users.UserSettings"
             android:parentActivityName=".BikeShareActivity">
         </activity>
-        <activity
-            android:name=".manageBikes.BikeNameActivity"
-            android:parentActivityName=".manageBikes.BikeListActivity">
-        </activity>
-        <activity android:name=".BikeShareActivity">
+        <activity android:name=".Users.SignUp" />
+        <activity android:name=".Users.SignUp_In">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <uses-library android:name="com.google.android.maps" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAldhPZdqAf2Yy-xT6GNFPzqciJFPZAoG8" />
+
+        <activity
+            android:name=".manageBikes.BikeListActivity"
+            android:parentActivityName=".BikeShareActivity" />
+        <activity
+            android:name=".manageBikes.BikeNameActivity"
+            android:parentActivityName=".manageBikes.BikeListActivity" />
+        <activity android:name=".BikeShareActivity" />
         <activity
             android:name=".EndRideActivity"
             android:parentActivityName=".BikeShareActivity" />
         <activity
             android:name=".StartRideActivity"
             android:parentActivityName=".BikeShareActivity" />
+
         <provider
-            android:authorities="com.example.bikeshare.fileprovider"
             android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.bikeshare.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/files"/>
+                android:resource="@xml/files" />
         </provider>
     </application>
 

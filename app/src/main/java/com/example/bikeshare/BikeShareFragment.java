@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,10 +21,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.bikeshare.Users.User;
+import com.example.bikeshare.Users.UserSettings;
 import com.example.bikeshare.manageBikes.BikeListActivity;
 import com.example.bikeshare.manageBikes.BikeNameFragment;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -44,17 +48,23 @@ public class BikeShareFragment extends Fragment {
     private Button mListRideButton;
 
     private RidesDB mRidesDB;
+    private User mUser;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+        mUser = userSession();
+
+        subtitle();
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.fragment_bike_share, menu);
+        inflater.inflate(R.menu.money_menu, menu);
     }
 
     @Override
@@ -64,9 +74,34 @@ public class BikeShareFragment extends Fragment {
                 Intent intent = new Intent(getContext(), BikeListActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.user_settings:
+                Intent intent2 = UserSettings.newIntent(getActivity());
+                startActivity(intent2);
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+
+
+    public User userSession(){
+        mRidesDB = RidesDB.get(getActivity());
+        for (User userOnline: mRidesDB.getUsers()) {
+            if(userOnline.isStatus() == true){
+                return userOnline;
+            }
+        }
+        return null;
+    }
+
+    public void subtitle(){
+        mUser = userSession();
+        String balance = mUser.moneyString() + "€";
+        String email = mUser.getEmail();
+        String subtitle = "User: " + email + " | Balance: " + balance;
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.getSupportActionBar().setSubtitle(subtitle);
+
     }
 
     @Override
@@ -138,12 +173,19 @@ public class BikeShareFragment extends Fragment {
         });
 
         updateUI();
+        subtitle();
         return view;
     }
 
     private void updateUI(){
         mRidesDB = RidesDB.get(getActivity());
-        List<Ride> mRidesList = mRidesDB.getRides();
+        List<Ride> mRidesList = new ArrayList<>();
+        for (Ride ride: mRidesDB.getRides()) {
+
+            if (ride.getUser().equals(mUser.getEmail())){
+                mRidesList.add(ride);
+            }
+        }
 
         if(mAdapter == null) {
             mAdapter = new BikeAdapter(mRidesList);
@@ -158,6 +200,7 @@ public class BikeShareFragment extends Fragment {
     public void onResume(){
         super.onResume();
         updateUI();
+        subtitle();
     }
 
     private class BikeHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
@@ -167,6 +210,7 @@ public class BikeShareFragment extends Fragment {
         private TextView mEndRide;
         private TextView mEndDate;
         private TextView mStartDate;
+        private TextView mPrice;
 
         Ride mRide;
         private int ITEM_STATE = 0;
@@ -183,6 +227,7 @@ public class BikeShareFragment extends Fragment {
             mEndRide = (TextView) itemView.findViewById(R.id.end_ride_list);
             mEndDate = (TextView) itemView.findViewById(R.id.date_end);
             mStartDate = (TextView) itemView.findViewById(R.id.date_start);
+            mPrice = (TextView) itemView.findViewById(R.id.boxPrice);
 
         }
 
@@ -200,6 +245,7 @@ public class BikeShareFragment extends Fragment {
             }else {
                 String endDateFormat = myFormat.format(ride.getEndDate());
                 mEndDate.setText(endDateFormat);
+                mPrice.setText(ride.priceString() + "€");
             }
         }
 

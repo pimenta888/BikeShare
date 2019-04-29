@@ -4,6 +4,8 @@ import android.database.Cursor;
 import android.database.CursorWrapper;
 import android.util.Log;
 
+import com.example.bikeshare.Users.User;
+import com.example.bikeshare.database.RideDbSchema.UsersTable;
 import com.example.bikeshare.manageBikes.Bike;
 import com.example.bikeshare.Ride;
 import com.example.bikeshare.database.RideDbSchema.BikeTable;
@@ -24,9 +26,10 @@ public class RideCursorWrapper extends CursorWrapper {
         String endLocation = getString(getColumnIndex(RidesTable.Cols.ENDLOCATION));
         long startDate = getLong(getColumnIndex(RidesTable.Cols.STARTDATE));
         long endDate = getLong(getColumnIndex(RidesTable.Cols.ENDDATE));
+        String userEmail = getString(getColumnIndex(RidesTable.Cols.USEREMAIL));
         double totalprice = getDouble(getColumnIndex(RidesTable.Cols.TOTALPRICE));
 
-        Ride ride = new Ride(UUID.fromString(uuidString), bikeName, startLocation, endLocation);
+        Ride ride = new Ride(UUID.fromString(uuidString), bikeName, startLocation, endLocation, userEmail);
         ride.setStartDate(new Date(startDate));
         ride.setEndDate(new Date(endDate));
         ride.setTotalPrice(totalprice);
@@ -45,6 +48,19 @@ public class RideCursorWrapper extends CursorWrapper {
         bike.setPrice(price);
 
         return bike;
+    }
+
+    public User getUser(){
+        String email = getString(getColumnIndex(UsersTable.Cols.EMAIL));
+        String password = getString(getColumnIndex(UsersTable.Cols.PASSWORD));
+        double money = getDouble(getColumnIndex(UsersTable.Cols.MONEY));
+        int status = getInt(getColumnIndex(UsersTable.Cols.STATUS));
+
+        User user = new User(email, password);
+        user.setMoney(money);
+        user.setStatus(status != 0); //1 means true
+
+        return user;
     }
 }
 
