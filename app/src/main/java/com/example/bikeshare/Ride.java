@@ -10,6 +10,7 @@ public class Ride {
     private String mEndRide;
     private Date mStartDate;
     private Date mEndDate;
+    private double totalPrice;
 
     public Ride (String bikeName , String startRide, String endRide) {
        this(UUID.randomUUID(), bikeName, startRide, endRide);
@@ -22,6 +23,7 @@ public class Ride {
         mEndRide = endRide.trim();
         mStartDate = new Date();
         mEndDate = mStartDate;
+        totalPrice = 0.0;
     }
 
     public UUID getId() {
@@ -66,5 +68,17 @@ public class Ride {
 
     public void setEndDate(Date endDate) {
         mEndDate = endDate;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public String priceString(){
+        return totalPrice + "";
     }
 }

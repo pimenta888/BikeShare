@@ -8,6 +8,7 @@ public class RideDbSchema {
             public static final String UUID = "uuid";
             public static final String BIKENAME = "bikeName";
             public static final String AVAILABLE = "isAvailable";
+            public static final String PRICE = "price";
         }
     }
 
@@ -21,6 +22,7 @@ public class RideDbSchema {
             public static final String ENDLOCATION = "endRide";
             public static final String STARTDATE = "startDate";
             public static final String ENDDATE = "endDate";
+            public static final String TOTALPRICE = "totalprice";
         }
     }
 }

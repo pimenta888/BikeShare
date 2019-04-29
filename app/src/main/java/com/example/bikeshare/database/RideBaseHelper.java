@@ -23,7 +23,8 @@ public class RideBaseHelper extends SQLiteOpenHelper {
                 " _id integer primary key autoincrement, " +
                 BikeTable.Cols.UUID + ", " +
                 BikeTable.Cols.BIKENAME + ", " +
-                BikeTable.Cols.AVAILABLE +
+                BikeTable.Cols.AVAILABLE + ", " +
+                BikeTable.Cols.PRICE +
                 ")"
         );
 
@@ -34,7 +35,8 @@ public class RideBaseHelper extends SQLiteOpenHelper {
                 RidesTable.Cols.STARTLOCATION + ", " +
                 RidesTable.Cols.ENDLOCATION + ", " +
                 RidesTable.Cols.STARTDATE + ", " +
-                RidesTable.Cols.ENDDATE +
+                RidesTable.Cols.ENDDATE + ", " +
+                RidesTable.Cols.TOTALPRICE +
                 ")"
         );
     }

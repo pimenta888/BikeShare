@@ -204,6 +204,7 @@ public class RidesDB {
         values.put(RidesTable.Cols.ENDLOCATION, ride.getEndRide());
         values.put(RidesTable.Cols.STARTDATE, ride.getStartDate().getTime());
         values.put(RidesTable.Cols.ENDDATE, ride.getEndDate().getTime());
+        values.put(RidesTable.Cols.TOTALPRICE, ride.priceString());
 
         return values;
     }
@@ -214,6 +215,7 @@ public class RidesDB {
         values.put(BikeTable.Cols.UUID, bike.getBikeId().toString());
         values.put(BikeTable.Cols.BIKENAME, bike.getBikeName());
         values.put(BikeTable.Cols.AVAILABLE, bike.isAvailable() ? 1 : 0);
+        values.put(BikeTable.Cols.PRICE, bike.priceString());
 
         return values;
     }

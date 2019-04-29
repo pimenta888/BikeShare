@@ -24,10 +24,12 @@ public class RideCursorWrapper extends CursorWrapper {
         String endLocation = getString(getColumnIndex(RidesTable.Cols.ENDLOCATION));
         long startDate = getLong(getColumnIndex(RidesTable.Cols.STARTDATE));
         long endDate = getLong(getColumnIndex(RidesTable.Cols.ENDDATE));
+        double totalprice = getDouble(getColumnIndex(RidesTable.Cols.TOTALPRICE));
 
         Ride ride = new Ride(UUID.fromString(uuidString), bikeName, startLocation, endLocation);
         ride.setStartDate(new Date(startDate));
         ride.setEndDate(new Date(endDate));
+        ride.setTotalPrice(totalprice);
 
         return ride;
     }
@@ -36,9 +38,11 @@ public class RideCursorWrapper extends CursorWrapper {
         String uuidString = getString(getColumnIndex(BikeTable.Cols.UUID));
         String bikeName = getString(getColumnIndex(BikeTable.Cols.BIKENAME));
         int isAvailable = getInt(getColumnIndex(BikeTable.Cols.AVAILABLE));
-        Log.d("Rides", "id: " + uuidString + "bike: " + bikeName);
+        double price = getDouble(getColumnIndex(BikeTable.Cols.PRICE));
+
         Bike bike = new Bike(UUID.fromString(uuidString), bikeName);
         bike.setAvailable(isAvailable != 0); //1 means true
+        bike.setPrice(price);
 
         return bike;
     }
