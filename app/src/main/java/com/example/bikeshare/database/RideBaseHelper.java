@@ -6,10 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.bikeshare.database.RideDbSchema.BikeTable;
 import com.example.bikeshare.database.RideDbSchema.RidesTable;
+import com.example.bikeshare.database.RideDbSchema.UsersTable;
 
 public class RideBaseHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
-    private static final String DATABASE_NAME = "crimeBase.db";
+    private static final String DATABASE_NAME = "bikeShareBase.db";
 
     public RideBaseHelper(Context context){
         super(context, DATABASE_NAME, null, VERSION);
@@ -36,7 +37,17 @@ public class RideBaseHelper extends SQLiteOpenHelper {
                 RidesTable.Cols.ENDLOCATION + ", " +
                 RidesTable.Cols.STARTDATE + ", " +
                 RidesTable.Cols.ENDDATE + ", " +
+                RidesTable.Cols.USEREMAIL + ", " +
                 RidesTable.Cols.TOTALPRICE +
+                ")"
+        );
+
+        db.execSQL("create table " + UsersTable.NAME + "(" +
+                " _id integer primary key autoincrement, " +
+                UsersTable.Cols.EMAIL + ", " +
+                UsersTable.Cols.PASSWORD + ", " +
+                UsersTable.Cols.MONEY + ", " +
+                UsersTable.Cols.STATUS +
                 ")"
         );
     }

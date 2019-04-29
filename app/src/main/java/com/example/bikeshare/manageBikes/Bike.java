@@ -56,6 +56,6 @@ public class Bike {
     }
 
     public String priceString(){
-        return price + "";
+        return String.format("%.2f", price);
     }
 }

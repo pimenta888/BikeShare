@@ -20,7 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.bikeshare.R;
+import com.example.bikeshare.Ride;
 import com.example.bikeshare.RidesDB;
+import com.example.bikeshare.Users.User;
 
 import java.io.File;
 import java.util.List;
@@ -37,6 +39,7 @@ public class BikeListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -112,6 +115,7 @@ public class BikeListFragment extends Fragment {
         private ImageView mAvailableImage;
         private ImageView mUnavailableImage;
         private ImageView mBikePicture;
+        private TextView mUserUsing;
         private Bike mBike;
         private File mPhotoFile;
 
@@ -123,9 +127,7 @@ public class BikeListFragment extends Fragment {
             mAvailableImage = (ImageView) itemView.findViewById(R.id.imageView);
             mUnavailableImage = (ImageView) itemView.findViewById(R.id.imageView2);
             mBikePicture = (ImageView) itemView.findViewById(R.id.imageView3);
-
-
-
+            mUserUsing = (TextView) itemView.findViewById(R.id.userUsing);
         }
 
         public void bind(Bike bike){
@@ -134,7 +136,12 @@ public class BikeListFragment extends Fragment {
             mBikeNameTitle.setText(mBike.getBikeName());
             mAvailableImage.setVisibility(bike.isAvailable() ? View.VISIBLE : View.GONE);
             mUnavailableImage.setVisibility(!bike.isAvailable() ? View.VISIBLE : View.GONE);
-
+            if(!bike.isAvailable()){
+                Log.d("ola", "var: "+mBike.getBikeName());
+                Log.d("ola", "var: "+mRidesDB.getRideUser(mBike.getBikeName()));
+                String userOfBike = mRidesDB.getRideUser(mBike.getBikeName());
+                mUserUsing.setText(userOfBike + " is using");
+            }
             mPhotoFile = RidesDB.get(getActivity()).getPhotoFile(mBike);
             Uri uri = FileProvider.getUriForFile(getActivity(), "com.example.bikeshare.fileprovider", mPhotoFile);
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);

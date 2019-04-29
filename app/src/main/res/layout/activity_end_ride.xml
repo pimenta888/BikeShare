@@ -70,8 +70,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:inputType="textMultiLine"
-            android:lines="2"
-            android:text="Loading..." />
+            android:lines="2" />
     </LinearLayout>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
